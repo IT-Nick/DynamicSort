@@ -164,14 +164,12 @@ void insertionSort(Matrix& m, string hint) {
 };
 
 //быстрая сортировка
-int compare( const void *arg1, const void *arg2 );
 void quickSort(Matrix& m, string hint) {
-//    qsort( (void *)argv, (size_t)argc, sizeof( char * ), compare ); нужно ручками будет
 };
 
 //сортировка слиянием
 void mergeSort(Matrix& m, string hint) {
-//    merge_sort(v.begin(), v.end()); не получится нужно ручками будет
+
 };
 
 
@@ -301,3 +299,4 @@ int main() {
 14 5 -6 6 9
 8 0 5 4 1
 */
+
