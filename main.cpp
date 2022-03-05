@@ -5,8 +5,7 @@
 #include <ctime>
 
 using namespace std;
-//колонки - данно (длинна ключа)
-//берем колонку и считаем количество вхождений элементов (далее находим самое большое количество)
+
 class Matrix {
 public:
     Matrix() {
@@ -34,7 +33,7 @@ public:
         elements_.assign(num_rows, vector<int>(num_columns));
     }
 
-    int& At(int row, int column) {
+    int &At(int row, int column) {
         return elements_.at(row).at(column);
     }
 
@@ -149,7 +148,7 @@ void insertionSort(Matrix& m, string hint) {
                 }
             }
         }
-    } else if(hint == "rows") {
+    } else if (hint == "rows") {
         for (int k = 0; k < m.GetNumColumns(); k++) {
             for (int counter = 1; counter < m.GetNumRows(); counter++) {
                 temp = m.At(counter, k);
@@ -162,25 +161,25 @@ void insertionSort(Matrix& m, string hint) {
             }
         }
     }
-};
+}
 
 //быстрая сортировка
-void quickSort(Matrix& m, int low, int high, string hint)  {
-    if(hint == "columns") {
+void quickSort(Matrix& m, int low, int high, string hint) {
+    if (hint == "columns") {
         for (int k = 0; k < m.GetNumColumns(); k++) {
             if (low < high) {
                 //partition
                 int pi;
                 int pivot = m.At(high, k);
                 int i = (low - 1);
-                for (int j = low; j < high; j++) {
-                    if (m.At(j, k) <= pivot) {
-                        i++;
-                        int tmp = m.At(i, k);
-                        m.At(i, k) = m.At(j, k);
-                        m.At(j, k) = tmp;
+                    for (int j = low; j < high; j++) {
+                        if (m.At(j, k) <= pivot) {
+                            i++;
+                            int tmp = m.At(i, k);
+                            m.At(i, k) = m.At(j, k);
+                            m.At(j, k) = tmp;
+                        }
                     }
-                }
                 int tmp = m.At(i + 1, k);
                 m.At(i + 1, k) = m.At(high, k);
                 m.At(high, k) = tmp;
@@ -190,21 +189,21 @@ void quickSort(Matrix& m, int low, int high, string hint)  {
                 quickSort(m, pi + 1, high, hint);
             }
         }
-    } else if(hint == "rows") {
+    } else if (hint == "rows") {
         for (int k = 0; k < m.GetNumRows(); k++) {
             if (low < high) {
                 //partition
                 int pi;
                 int pivot = m.At(k, high);
                 int i = (low - 1);
-                for (int j = low; j < high; j++) {
-                    if (m.At(k, j) <= pivot) {
-                        i++;
-                        int tmp = m.At(k, i);
-                        m.At(k, j) = m.At(k, j);
-                        m.At(k, j) = tmp;
+                    for (int j = low; j < high; j++) {
+                        if (m.At(k, j) <= pivot) {
+                            i++;
+                            int tmp = m.At(k, i);
+                            m.At(k, j) = m.At(k, j);
+                            m.At(k, j) = tmp;
+                        }
                     }
-                }
                 int tmp = m.At(k, i + 1);
                 m.At(k, i + 1) = m.At(k, high);
                 m.At(k, high) = tmp;
@@ -215,11 +214,11 @@ void quickSort(Matrix& m, int low, int high, string hint)  {
             }
         }
     }
-};
+}
 
 //сортировка слиянием
 void mergeSort(Matrix& m, string hint) {
-};
+}
 
 
 istream& operator>>(istream& in, Matrix& matrix) {
@@ -232,14 +231,14 @@ istream& operator>>(istream& in, Matrix& matrix) {
     in >> num_rows >> num_columns;
 
     matrix.Reset(num_rows, num_columns);
-    if(input == 0) {
+    if (input == 0) {
         cout << "Enter a matrix:" << endl;
         for (int row = 0; row < num_rows; ++row) {
             for (int column = 0; column < num_columns; ++column) {
                 in >> matrix.At(row, column);
             }
         }
-    } else if(input == 1) {
+    } else if (input == 1) {
         cout << "Enter a range, for example 10 100:" << endl;
         int a, b;
         cin >> a >> b;
@@ -257,7 +256,7 @@ ostream& operator<<(ostream& out, const Matrix& matrix) {
     cout << "What do you want: full matrix - 0 or one element - 1?" << endl;
     int index;
     cin >> index;
-    if(index == 0) {
+    if (index == 0) {
         out << matrix.GetNumRows() << " " << matrix.GetNumColumns() << endl;
         for (int row = 0; row < matrix.GetNumRows(); ++row) {
             for (int column = 0; column < matrix.GetNumColumns(); ++column) {
@@ -268,7 +267,7 @@ ostream& operator<<(ostream& out, const Matrix& matrix) {
             }
             out << endl;
         }
-    } else if(index == 1) {
+    } else if (index == 1) {
         cout << "Enter a position of an element (row, column), for example 1 2:" << endl;
         int row, column;
         cin >> row >> column;
@@ -291,12 +290,12 @@ int main() {
     cout << "How many requests do you want?" << endl;
     int requests_count;
     cin >> requests_count;
-    while(requests_count > 0) {
-    cout << "Request: INPUT - 0, OUTPUT - 1, SELECTSORT - 2, RESET - 3" << endl;
-    cout << "Enter a request: " << endl;
-    int request_number;
-    cin >> request_number;
-    request = static_cast<RequestType>(request_number);
+    while (requests_count > 0) {
+        cout << "Request: INPUT - 0, OUTPUT - 1, SELECTSORT - 2, RESET - 3" << endl;
+        cout << "Enter a request: " << endl;
+        int request_number;
+        cin >> request_number;
+        request = static_cast<RequestType>(request_number);
         switch (request) {
             case INPUT: {
                 cin >> m;
@@ -313,22 +312,22 @@ int main() {
                 cout << "Select: rows or columns" << endl;
                 string select_pos;
                 cin >> select_pos;
-                if(select_sort == 0) {
+                if (select_sort == 0) {
                     bubbleSort(m, select_pos);
                 }
-                if(select_sort == 1) {
+                if (select_sort == 1) {
                     insertionSort(m, select_pos);
                 }
-                if(select_sort == 2) {
+                if (select_sort == 2) {
                     int low = 0;
                     int high = m.GetNumRows() - 1;
-                    if(select_pos == "rows") {
+                    if (select_pos == "rows") {
                         low = 0;
                         high = m.GetNumColumns() - 1;
                     }
                     quickSort(m, low, high, select_pos);
                 }
-                if(select_sort == 3) {
+                if (select_sort == 3) {
                     mergeSort(m, select_pos);
                 }
                 break;
