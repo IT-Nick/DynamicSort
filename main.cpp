@@ -5,7 +5,8 @@
 #include <ctime>
 
 using namespace std;
-
+//колонки - данно (длинна ключа)
+//берем колонку и считаем количество вхождений элементов (далее находим самое большое количество)
 class Matrix {
 public:
     Matrix() {
@@ -164,12 +165,60 @@ void insertionSort(Matrix& m, string hint) {
 };
 
 //быстрая сортировка
-void quickSort(Matrix& m, string hint) {
+void quickSort(Matrix& m, int low, int high, string hint)  {
+    if(hint == "columns") {
+        for (int k = 0; k < m.GetNumColumns(); k++) {
+            if (low < high) {
+                //partition
+                int pi;
+                int pivot = m.At(high, k);
+                int i = (low - 1);
+                for (int j = low; j < high; j++) {
+                    if (m.At(j, k) <= pivot) {
+                        i++;
+                        int tmp = m.At(i, k);
+                        m.At(i, k) = m.At(j, k);
+                        m.At(j, k) = tmp;
+                    }
+                }
+                int tmp = m.At(i + 1, k);
+                m.At(i + 1, k) = m.At(high, k);
+                m.At(high, k) = tmp;
+                pi = i + 1;
+                //
+                quickSort(m, low, pi - 1, hint);
+                quickSort(m, pi + 1, high, hint);
+            }
+        }
+    } else if(hint == "rows") {
+        for (int k = 0; k < m.GetNumRows(); k++) {
+            if (low < high) {
+                //partition
+                int pi;
+                int pivot = m.At(k, high);
+                int i = (low - 1);
+                for (int j = low; j < high; j++) {
+                    if (m.At(k, j) <= pivot) {
+                        i++;
+                        int tmp = m.At(k, i);
+                        m.At(k, j) = m.At(k, j);
+                        m.At(k, j) = tmp;
+                    }
+                }
+                int tmp = m.At(k, i + 1);
+                m.At(k, i + 1) = m.At(k, high);
+                m.At(k, high) = tmp;
+                pi = i + 1;
+                //
+                quickSort(m, low, pi - 1, hint);
+                quickSort(m, pi + 1, high, hint);
+            }
+        }
+    }
 };
 
 //сортировка слиянием
 void mergeSort(Matrix& m, string hint) {
-
 };
 
 
@@ -237,6 +286,7 @@ enum RequestType {
 
 int main() {
     Matrix m;
+    Matrix m2;
     RequestType request;
     cout << "How many requests do you want?" << endl;
     int requests_count;
@@ -270,7 +320,13 @@ int main() {
                     insertionSort(m, select_pos);
                 }
                 if(select_sort == 2) {
-                    quickSort(m, select_pos);
+                    int low = 0;
+                    int high = m.GetNumRows() - 1;
+                    if(select_pos == "rows") {
+                        low = 0;
+                        high = m.GetNumColumns() - 1;
+                    }
+                    quickSort(m, low, high, select_pos);
                 }
                 if(select_sort == 3) {
                     mergeSort(m, select_pos);
