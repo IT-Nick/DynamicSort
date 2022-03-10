@@ -134,9 +134,9 @@ void mergeSort(Matrix& m, int first, int last) {
             for (int k = 0; k < m.GetNumColumns(); k++) {
                 int middle, start, final, j;
                 int *mas = new int[100];
-                middle = (first + last) / 2; //вычисление среднего элемента
-                start = first; //начало левой части
-                final = middle + 1; //начало правой части
+                middle = (first + last) / 2;
+                start = first;
+                final = middle + 1;
                 for (j = first; j <= last; j++) //выполнять от начала до конца
                     if ((start <= middle) && ((final > last) || (m.At(start, k) < m.At(final, k)))) {
                         mas[j] = m.At(start, k);

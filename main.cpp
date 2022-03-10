@@ -402,7 +402,7 @@ int main() {
         }
         requests_count--;
         } catch (std::exception& e) {
-            std::cerr << e.what() << std::endl;
+            std::cerr << std::endl << e.what() << std::endl;
         }
     }
     return 0;
